@@ -26,10 +26,9 @@ contract CrowdFunding {
     }
 
     // State Variables
-    address public contractCreator;
     ERC20 public crowdFundToken;
+    address private _contractCreator;
     uint256 private _campaignCount;
-    uint256 private _timeInterval;
     mapping(uint256 => Campaign) public campaigns;
     mapping(uint256 => uint256) private _numberOfDonors;
     mapping(uint256 => mapping(address => uint256)) private _pledgedAmount;
@@ -50,7 +49,7 @@ contract CrowdFunding {
 
     constructor(address _tokenAddress) {
         crowdFundToken = ERC20(_tokenAddress);
-        contractCreator = msg.sender;
+        _contractCreator = msg.sender;
     }
 
     modifier onlyOwner(Campaign storage campaign) {
@@ -176,8 +175,8 @@ contract CrowdFunding {
         return _pledgedAmount[_id][_funder];
     }
 
-    function getTimeInterval(uint256) public view returns (uint256) {
-        return _timeInterval;
+    function getContractCreator(uint256) public view returns (address) {
+        return _contractCreator;
     }
 
     function getCampaignCount() public view returns (uint256) {
