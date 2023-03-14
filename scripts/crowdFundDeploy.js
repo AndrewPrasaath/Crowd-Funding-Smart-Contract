@@ -1,7 +1,6 @@
 const { ethers } = require("hardhat");
 
 const tokenAddress = ""; // deployed crowd fund token address
-const timeInterval = 60;
 
 async function main() {
   const CrowdFundFactory = await ethers.getContractFactory("CrowdFunding");
