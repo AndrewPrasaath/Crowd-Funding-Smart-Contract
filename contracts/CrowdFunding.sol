@@ -26,6 +26,7 @@ contract CrowdFunding {
     }
 
     // State Variables
+    address public contractCreator;
     ERC20 public crowdFundToken;
     uint256 private _campaignCount;
     uint256 private _timeInterval;
@@ -47,35 +48,36 @@ contract CrowdFunding {
     event Withdraw(uint _id);
     event Refund(uint _id, address indexed _caller, uint _amount);
 
-    constructor(address _tokenAddress, uint time_interval) {
+    constructor(address _tokenAddress) {
         crowdFundToken = ERC20(_tokenAddress);
-        _timeInterval = time_interval;
+        contractCreator = msg.sender;
     }
 
     modifier onlyOwner(Campaign storage campaign) {
-        require(campaign.owner == msg.sender);
+        require(
+            campaign.owner == msg.sender,
+            "only campaign owner can access this function"
+        );
         _;
     }
 
     // Functions
-    function deploy(uint256 _target, uint256 _startTime) external {
+    function deploy(
+        uint256 _target,
+        uint256 _startTime,
+        uint256 _endTime
+    ) external {
         _campaignCount++;
         campaigns[_campaignCount] = Campaign({
             owner: msg.sender,
             target: _target,
             pledged: 0,
-            startTime: block.timestamp + _startTime,
-            endTime: block.timestamp + _startTime + _timeInterval,
+            startTime: _startTime,
+            endTime: _endTime,
             claimed: false
         });
 
-        emit Deploy(
-            _campaignCount,
-            msg.sender,
-            _target,
-            _startTime,
-            _startTime + _timeInterval
-        );
+        emit Deploy(_campaignCount, msg.sender, _target, _startTime, _endTime);
     }
 
     function revoke(uint256 _id) external onlyOwner(campaigns[_id]) {
