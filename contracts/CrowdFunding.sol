@@ -13,7 +13,7 @@ error TargetNotReached();
 error AmountClaimed();
 
 /// @title CrowdFunding
-/// @author Andrew Prasaath
+/// @author Andrew Prasaath A A
 contract CrowdFunding {
     // Type Declaration
     struct Campaign {
