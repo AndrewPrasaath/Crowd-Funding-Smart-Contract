@@ -1,6 +1,6 @@
 # Crowd Funding Smart Contract Project
 
-This project demonstrates a minimalistic crowd funding smart contract using hardhat. It comes with it's own ERC20 token, and a script that deploys that contract.
+This project demonstrates a minimalistic crowd funding smart contract using hardhat for Metacrafters Challenge. It comes with it's own ERC20 token, and a script that deploys that contract.
 
 note: test and contract interaction scripts needs to be implemented. Until then use remix to interact with the contract.
 
